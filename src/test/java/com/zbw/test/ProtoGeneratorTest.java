@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static com.squareup.protoparser.DataType.ScalarType.STRING;
+
 /**
  * @author zhangbaowei
  * @description:
@@ -23,7 +25,13 @@ public class ProtoGeneratorTest {
                 .addOption(OptionElement.create("java_package", OptionElement.Kind.STRING, "com.zbw911.test"))
                 .addOption(OptionElement.create("java_multiple_files", OptionElement.Kind.BOOLEAN, "true"))
                 .addType(MessageElement.builder().name("Foo").build())
-                .addType(MessageElement.builder().name("requestType").build())
+                .addType(MessageElement.builder().name("requestType")
+                        .addField(FieldElement.builder()
+//                                .label(REQUIRED)
+                                .type(DataType.MapType.create(STRING, DataType.NamedType.create("Foo")))
+                                .name("f17")
+                                .tag(17)
+                                .build()).build())
                 .addType(MessageElement.builder().name("responeType")
                         .addField(FieldElement.builder()
                                 .label(FieldElement.Label.REPEATED)
